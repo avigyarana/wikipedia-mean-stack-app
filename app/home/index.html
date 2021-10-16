@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Data Analytic Web Application</title>
+
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Styling -->
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/assignment.css" />
+    <!--  <style>
+         body {
+             margin-top: 20px;
+             margin-bottom: 150px;
+         }
+     </style> -->
+</head>
+
+<body ng-app="Demo">
+<div class="container" ng-controller="DemoController">
+    <h1>Data Analytic Web Application</h1>
+    <br><br>
+
+    <p class="select">Choose your statistic type:</p>
+    <input type="radio" ng-model="selectStats" ng-change="radioChange('overAll')" value="overAll" />  Overall Statistics
+    <br>
+    <input type="radio" ng-model="selectStats" ng-change="radioChange('singleArticle')" value="singleArticle" />  Individual Article Statistics
+    <!-- <table width="1200">
+        <tr>
+            <td><input type="radio" ng-model="selectStats" ng-change="radioChange('overAll')" value="overAll" />Overall Statistic</td>
+            <td><input type="radio" ng-model="selectStats" ng-change="radioChange('singleArticle')" value="singleArticle" />Single Article Statistic</td>
+        </tr>
+    </table> -->
+    </br></br>
+    <div ng-if="overAllSelected == true">
+        <div>
+            <h4>Overall Statistics</h4>
+            <br>
+            <p><b>Article with most number of revisions:</b> <i>{{mostarticle._id}}</i></p>
+            <p><b>Article with least number of revisions:</b><i> {{leastarticle._id}}</i></p>
+            <p><b>Article with highest number of history:</b> <i>{{highhistory._id}}</i></p>
+            <p><b>Article with least number of history:</b> <i>{{leasthistory._id}}</i></p>
+            <p><b>The article edited by largest group of registered users:</b> <i> {{largestgroup._id}}</i></p>
+            <p><b>The article edited by Smallest group of registered users:</b> <i> {{smallestgroup._id}}</i></p>
+        </div>
+        <br>
+        <div style="float: left" id="oacanvas2"><canvas id="oapiechart" /></div>
+        <div style="float: left" id="oacanvas3"> <canvas id="oabarchart" /></div>
+    </div>
+    <div ng-if="singleArticleSelected == true">
+        <h4>Select Article</h4>
+        <br>
+        <div custom-select="s.id as s.name for s in states | filter: { name: $searchTerm } track by s.id" ng-change="change(this)" ng-model="state"></div>
+        </br></br>
+        <div style="float: left;width=50%" ng-show="articleSelected">
+            <h2>Article Details</h2>
+            <p><b>Article Title: </b> {{state}}</p>
+            <p><b>Article Revision count :</b> {{revisionCount}}</p>
+            <table border="1">
+                <thead>
+                <tr>
+                    <th>User Id</th>
+                    <th>Revision count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user._id}}</td>
+                    <td>{{user.numOfEdits}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="float: right" id="canvas2"><canvas id="doughnut-chart" /></div>
+        </br></br></br></br>
+        <div id="canvas1"><canvas id="bar-chart1" style="width: content-box;" /></div>
+        </br></br></br></br>
+        <div id="canvas3"><canvas id="bar-chart2" style="width: content-box;" /></div>
+    </div>
+
+
+
+</div>
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<![endif]-->
+
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"> </script>
+<script src="js/controller.js"></script>
+<script src="js/customSelect.js"></script>
+</body>
+</html>
+
